@@ -2,6 +2,11 @@
 
 import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+
+import { useParams, useRouter } from "next/navigation";
+
+import axios from "axios";
 
 import { Store } from "@prisma/client";
 import { Trash } from "lucide-react";
@@ -22,16 +27,18 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
+const formSchema = z.object({
+  name: z.string().min(1),
+});
+
+type SettingsFormValues = z.infer<typeof formSchema>;
 interface ISettingsFormProps {
   initialData: Store;
 }
 
 const SettingsForm: FC<ISettingsFormProps> = ({ initialData }) => {
-  const formSchema = z.object({
-    name: z.string().min(1),
-  });
-
-  type SettingsFormValues = z.infer<typeof formSchema>;
+  const params = useParams();
+  const router = useRouter();
 
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -42,7 +49,17 @@ const SettingsForm: FC<ISettingsFormProps> = ({ initialData }) => {
   });
 
   const onSubmit = async (data: SettingsFormValues) => {
-    console.log(data);
+    setIsLoading(true);
+
+    try {
+      await axios.patch(`/api/stores/${params.storeId}`, data);
+      router.refresh();
+      toast.success("Store updated!");
+    } catch (error) {
+      toast.error("Something went wrong...");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
