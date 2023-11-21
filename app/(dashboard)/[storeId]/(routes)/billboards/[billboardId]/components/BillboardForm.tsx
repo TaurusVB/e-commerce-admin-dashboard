@@ -14,8 +14,6 @@ import { Trash } from "lucide-react";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { useOrigin } from "@/hooks/useOrigin";
-
 import { Button } from "@/components/ui/button";
 import Heading from "@/components/ui/heading";
 import { Separator } from "@/components/ui/separator";
@@ -29,7 +27,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import AlertModal from "@/components/modals/alertModal";
-import { ApiAlert } from "@/components/ui/apiAlert";
 import ImageUpload from "@/components/ui/imageUpload";
 
 const formSchema = z.object({
@@ -46,7 +43,6 @@ interface IBillboardFormProps {
 const BillboardForm: FC<IBillboardFormProps> = ({ initialData }) => {
   const params = useParams();
   const router = useRouter();
-  const origin = useOrigin();
 
   const description = initialData ? "Edit a billboard" : "Add a new billboard";
   const title = initialData ? "Edit billboard" : "Create billboard";
