@@ -90,7 +90,7 @@ const BillboardForm: FC<IBillboardFormProps> = ({ initialData }) => {
         `/api/${params.storeId}/billboards/${params.billboardId}`
       );
       router.refresh();
-      router.push("/");
+      router.push(`/${params.storeId}/billboards`);
       toast.success("Billboard deleted!");
     } catch (error) {
       toast.error(
@@ -173,7 +173,6 @@ const BillboardForm: FC<IBillboardFormProps> = ({ initialData }) => {
           </Button>
         </form>
       </Form>
-      <Separator />
     </>
   );
 };
