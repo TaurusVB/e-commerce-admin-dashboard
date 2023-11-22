@@ -8,7 +8,7 @@ import { useParams, useRouter } from "next/navigation";
 
 import axios from "axios";
 
-import { Billboard } from "@prisma/client";
+import { Category } from "@prisma/client";
 import { Trash } from "lucide-react";
 
 import * as z from "zod";
@@ -27,39 +27,36 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import AlertModal from "@/components/modals/alertModal";
-import ImageUpload from "@/components/ui/imageUpload";
 
 const formSchema = z.object({
-  label: z.string().min(1),
-  imageUrl: z.string().min(1),
+  name: z.string().min(1),
+  billboardId: z.string().min(1),
 });
 
-type BillboardFormValues = z.infer<typeof formSchema>;
+type CategoryFormValues = z.infer<typeof formSchema>;
 
-interface IBillboardFormProps {
-  initialData: Billboard | null;
+interface ICategoryFormProps {
+  initialData: Category | null;
 }
 
-const BillboardForm: FC<IBillboardFormProps> = ({ initialData }) => {
+const CategoryForm: FC<ICategoryFormProps> = ({ initialData }) => {
   const params = useParams();
   const router = useRouter();
 
-  const description = initialData ? "Edit a billboard" : "Add a new billboard";
-  const title = initialData ? "Edit billboard" : "Create billboard";
-  const toastMessage = initialData
-    ? "Billboard updated."
-    : "Billboard created.";
+  const description = initialData ? "Edit a category" : "Add a new category";
+  const title = initialData ? "Edit category" : "Create category";
+  const toastMessage = initialData ? "Category updated." : "Category created.";
   const action = initialData ? "Save changes" : "Create";
 
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const form = useForm<BillboardFormValues>({
+  const form = useForm<CategoryFormValues>({
     resolver: zodResolver(formSchema),
-    defaultValues: initialData || { label: "", imageUrl: "" },
+    defaultValues: initialData || { name: "", billboardId: "" },
   });
 
-  const onSubmit = async (data: BillboardFormValues) => {
+  const onSubmit = async (data: CategoryFormValues) => {
     setIsLoading(true);
 
     try {
@@ -131,35 +128,17 @@ const BillboardForm: FC<IBillboardFormProps> = ({ initialData }) => {
           onSubmit={form.handleSubmit(onSubmit)}
           className="space-y-8 w-full"
         >
-          <FormField
-            control={form.control}
-            name="imageUrl"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Background image</FormLabel>
-                <FormControl>
-                  <ImageUpload
-                    value={field.value ? [field.value] : []}
-                    disabled={isLoading}
-                    onChange={(url) => field.onChange(url)}
-                    onRemove={() => field.onChange("")}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
           <div className=" grid grid-cols-3 gap-8">
             <FormField
               control={form.control}
-              name="label"
+              name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Label</FormLabel>
+                  <FormLabel>Name</FormLabel>
                   <FormControl>
                     <Input
                       disabled={isLoading}
-                      placeholder="Billboard label"
+                      placeholder="Category name"
                       {...field}
                     />
                   </FormControl>
@@ -177,4 +156,4 @@ const BillboardForm: FC<IBillboardFormProps> = ({ initialData }) => {
   );
 };
 
-export default BillboardForm;
+export default CategoryForm;
