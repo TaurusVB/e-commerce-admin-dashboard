@@ -8,7 +8,7 @@ import axios from "axios";
 
 import { useParams, useRouter } from "next/navigation";
 
-import { TypeSizeColumn } from "./columns";
+import { TypeColorsColumn } from "./columns";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -20,7 +20,7 @@ import { Button } from "@/components/ui/button";
 import AlertModal from "@/components/modals/alertModal";
 
 interface ICellActionProps {
-  data: TypeSizeColumn;
+  data: TypeColorsColumn;
 }
 
 const CellAction: FC<ICellActionProps> = ({ data }) => {
@@ -32,7 +32,7 @@ const CellAction: FC<ICellActionProps> = ({ data }) => {
 
   const onCopy = (id: string) => {
     navigator.clipboard.writeText(id);
-    toast.success("Size Id copied to the clipboard!");
+    toast.success("Color Id copied to the clipboard!");
   };
 
   const onDelete = async () => {
@@ -40,11 +40,11 @@ const CellAction: FC<ICellActionProps> = ({ data }) => {
     setIsOpen(true);
 
     try {
-      await axios.delete(`/api/${params.storeId}/sizes/${data.id}`);
+      await axios.delete(`/api/${params.storeId}/colors/${data.id}`);
       router.refresh();
-      toast.success("Size deleted!");
+      toast.success("Color deleted!");
     } catch (error) {
-      toast.error("Make sure you removed all products using this size first!");
+      toast.error("Make sure you removed all products using this color first!");
     } finally {
       setIsLoading(false);
       setIsOpen(false);
@@ -73,7 +73,7 @@ const CellAction: FC<ICellActionProps> = ({ data }) => {
             Copy Id
           </DropdownMenuItem>
           <DropdownMenuItem
-            onClick={() => router.push(`/${params.storeId}/sizes/${data.id}`)}
+            onClick={() => router.push(`/${params.storeId}/colors/${data.id}`)}
           >
             <Edit className="mr-2 w-4 h-4" />
             Update
