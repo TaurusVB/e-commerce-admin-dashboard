@@ -8,7 +8,7 @@ import axios from "axios";
 
 import { useParams, useRouter } from "next/navigation";
 
-import { TypeBillboardColumn } from "./columns";
+import { TypeProductColumn } from "./columns";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -20,7 +20,7 @@ import { Button } from "@/components/ui/button";
 import AlertModal from "@/components/modals/alertModal";
 
 interface ICellActionProps {
-  data: TypeBillboardColumn;
+  data: TypeProductColumn;
 }
 
 const CellAction: FC<ICellActionProps> = ({ data }) => {
@@ -32,7 +32,7 @@ const CellAction: FC<ICellActionProps> = ({ data }) => {
 
   const onCopy = (id: string) => {
     navigator.clipboard.writeText(id);
-    toast.success("Billboard Id copied to the clipboard!");
+    toast.success("Product Id copied to the clipboard!");
   };
 
   const onDelete = async () => {
@@ -40,13 +40,11 @@ const CellAction: FC<ICellActionProps> = ({ data }) => {
     setIsOpen(true);
 
     try {
-      await axios.delete(`/api/${params.storeId}/billboards/${data.id}`);
+      await axios.delete(`/api/${params.storeId}/products/${data.id}`);
       router.refresh();
-      toast.success("Billboard deleted!");
+      toast.success("Product deleted!");
     } catch (error) {
-      toast.error(
-        "Make sure you removed all categories using billboard first!"
-      );
+      toast.error("Something went wrong...");
     } finally {
       setIsLoading(false);
       setIsOpen(false);
@@ -76,7 +74,7 @@ const CellAction: FC<ICellActionProps> = ({ data }) => {
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={() =>
-              router.push(`/${params.storeId}/billboards/${data.id}`)
+              router.push(`/${params.storeId}/products/${data.id}`)
             }
           >
             <Edit className="mr-2 w-4 h-4" />
