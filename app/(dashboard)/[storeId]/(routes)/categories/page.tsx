@@ -5,6 +5,11 @@ import prismadb from "@/lib/prismadb";
 import CategoryClient from "./components/client";
 import { TypeCategoryColumn } from "./components/columns";
 
+export const metadata = {
+  title: "Categories | ADMIN-DASHBOARD",
+  description: "E-commerce ADMIN-DASHBOARD, Categories page",
+};
+
 const CategoriesPage = async ({ params }: { params: { storeId: string } }) => {
   const categories = await prismadb.category.findMany({
     where: {

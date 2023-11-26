@@ -6,6 +6,11 @@ import { TypeOrderColumn } from "./components/columns";
 import { formatter } from "@/lib/utils";
 import OrderClient from "./components/client";
 
+export const metadata = {
+  title: "Orders | ADMIN-DASHBOARD",
+  description: "E-commerce ADMIN-DASHBOARD, Orders page",
+};
+
 const OrdersPage = async ({ params }: { params: { storeId: string } }) => {
   const orders = await prismadb.order.findMany({
     where: {

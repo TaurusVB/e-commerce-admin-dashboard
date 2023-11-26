@@ -5,6 +5,11 @@ import prismadb from "@/lib/prismadb";
 import BillboardClient from "./components/client";
 import { TypeBillboardColumn } from "./components/columns";
 
+export const metadata = {
+  title: "Billboard | ADMIN-DASHBOARD",
+  description: "E-commerce ADMIN-DASHBOARD, Billboard page",
+};
+
 const BillboardsPage = async ({ params }: { params: { storeId: string } }) => {
   const billboards = await prismadb.billboard.findMany({
     where: {

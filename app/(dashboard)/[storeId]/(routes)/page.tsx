@@ -14,6 +14,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Overview from "@/components/Overview";
 import getGraphRevenue from "@/actions/getGraphRevenue";
 
+export const metadata = {
+  title: "Overview | ADMIN-DASHBOARD",
+  description: "E-commerce ADMIN-DASHBOARD, Overview page",
+};
+
 interface IDashboardPageProps {
   params: { storeId: string };
 }

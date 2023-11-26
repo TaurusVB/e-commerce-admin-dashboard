@@ -5,6 +5,11 @@ import { FC } from "react";
 import prismadb from "@/lib/prismadb";
 import SettingsForm from "./components/SettingsForm";
 
+export const metadata = {
+  title: "Settings | ADMIN-DASHBOARD",
+  description: "E-commerce ADMIN-DASHBOARD, Settings page",
+};
+
 interface ISettingsPageProps {
   params: {
     storeId: string;

@@ -5,6 +5,11 @@ import prismadb from "@/lib/prismadb";
 import { TypeColorsColumn } from "./components/columns";
 import ColorsClient from "./components/client";
 
+export const metadata = {
+  title: "Colors | ADMIN-DASHBOARD",
+  description: "E-commerce ADMIN-DASHBOARD, Colors page",
+};
+
 const ColorsPage = async ({ params }: { params: { storeId: string } }) => {
   const colors = await prismadb.color.findMany({
     where: {

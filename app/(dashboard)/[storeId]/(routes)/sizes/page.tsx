@@ -5,6 +5,11 @@ import prismadb from "@/lib/prismadb";
 import { TypeSizeColumn } from "./components/columns";
 import SizesClient from "./components/client";
 
+export const metadata = {
+  title: "Sizes | ADMIN-DASHBOARD",
+  description: "E-commerce ADMIN-DASHBOARD, Sizes page",
+};
+
 const SizesPage = async ({ params }: { params: { storeId: string } }) => {
   const sizes = await prismadb.size.findMany({
     where: {

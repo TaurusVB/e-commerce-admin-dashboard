@@ -9,11 +9,6 @@ import { ThemeProvider } from "@/providers/themeProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata = {
-  title: "ADMIN-DASHBOARD",
-  description: "E-commerce ADMIN-DASHBOARD",
-};
-
 export default function RootLayout({
   children,
 }: {
